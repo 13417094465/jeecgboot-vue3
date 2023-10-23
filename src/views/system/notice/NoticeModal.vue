@@ -19,17 +19,19 @@
   });
   //表单赋值
   const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data) => {
+       let data_ = JSON.parse(JSON.stringify(data));
+    
     //重置表单
     await resetFields();
     setModalProps({ confirmLoading: false });
-    isUpdate.value = !!data?.isUpdate;
+    isUpdate.value = !!data_?.isUpdate;
     if (unref(isUpdate)) {
-      if (data.record.userIds) {
-        data.record.userIds = data.record.userIds.substring(0, data.record.userIds.length - 1);
+      if (data_.record.userIds) {
+        data_.record.userIds = data_.record.userIds.substring(0, data_.record.userIds.length - 1);
       }
       //表单赋值
       await setFieldsValue({
-        ...data.record,
+        ...data_.record,
       });
     }
   });
